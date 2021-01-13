@@ -1,0 +1,201 @@
+ {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --main-clr: #ae866c;
+  --secondary-clr: #765555;
+  --tertiary-clr: #543f3f;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--tertiary-clr);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track-piece {
+  background: var(--main-clr);
+}
+
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Sansita Swashed", cursive;
+  /* font-family: helvetica, sans-serif; */
+  overflow-x: hidden;
+  text-align: center;
+}
+input,
+textarea {
+  font-family: "Sansita Swashed", cursive;
+}
+.btn {
+  text-transform: capitalize !important;
+  font-family: "Noto Serif", serif;
+}
+h1 {
+  font-size: clamp(3.5rem, 6vw, 4rem);
+  text-transform: capitalize;
+  margin-bottom: 1em;
+  color: var(--tertiary-clr);
+}
+h2 {
+  font-size: clamp(3rem, 5vw, 3.5rem);
+  text-transform: capitalize;
+  color: var(--tertiary-clr);
+}
+h3 {
+  font-size: clamp(2.5rem, 4vw, 3rem);
+  text-transform: capitalize;
+}
+h4 {
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  text-transform: capitalize;
+  color: var(--secondary-clr);
+}
+p,
+li,
+label,
+input,
+textarea,
+.btn {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+.btn {
+  cursor: pointer;
+}
+a {
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  color: var(--tertiary-clr);
+}
+.container {
+  width: minmax(90%, 1200px);
+  margin: 0 auto;
+}
+.btn {
+  padding: 1em 4vw;
+  background-color: var(--main-clr);
+  text-decoration: none;
+  color: white;
+  border: 2px solid #2e3639;
+  border-radius: 30px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.btn:hover {
+  background-color: var(--tertiary-clr);
+  border-color: var(--main-clr);
+}
+input[type="image"] {
+  width: clamp(100px, 60vw, 300px);
+}
+
+#app {
+  text-align: left;
+  max-width: 500px;
+  padding: 1em;
+  grid-area: form;
+  margin: 0 auto;
+}
+#app input {
+  width: 100%;
+  padding: 0.5em;
+  color: var(--secondary-clr);
+  border-radius: 8px;
+}
+#app h1,
+#app h4 {
+  color: var(--tertiary-clr);
+}
+#app label {
+  display: block;
+  color: var(--tertiary-clr);
+  font-weight: bold;
+  margin: 0.5em 0;
+}
+#app textarea {
+  padding: 0.5em;
+  width: 100%;
+  height: 80px;
+  color: var(--secondary-clr);
+  margin-bottom: 1em;
+  border-radius: 8px;
+  border-top-color: black;
+  border-left-color: black;
+  border-width: 2px;
+}
+#app .btn {
+  border-radius: 0;
+  color: white;
+  border-radius: 8px;
+}
+#app .nameDiv {
+  display: grid;
+  grid-column-gap: 20px;
+  grid-template-areas:
+    "fNameL lNameL"
+    "fName  lName";
+}
+
+#app #fName {
+  grid-area: fName;
+}
+#app #fNameL {
+  grid-area: fNameL;
+}
+#app #lName {
+  grid-area: lName;
+}
+#app #lNameL {
+  grid-area: lNameL;
+}
+#app h2 {
+  text-transform: none;
+  margin-top: 20vh;
+  color: var(--tertiary-clr);
+  margin-bottom: 2em;
+}
+.paymentMessage .back {
+  border-radius: 30px;
+  font-size: 200% !important;
+}
+.contact h2 {
+  margin-top: 12vh;
+}
+#app .container {
+  display: grid;
+  grid-template-areas: "socialMedia form";
+  align-items: center;
+}
+#app h4 {
+  display: block;
+  margin-bottom: 2em;
+  width: 80%;
+}
+#output li {
+  list-style: none;
+}
+footer {
+  text-align: center;
+  background-color: var(--tertiary-clr);
+  color: var(--main-clr);
+  position: static;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
