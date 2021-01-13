@@ -39,7 +39,8 @@ body {
   text-align: center;
 }
 input,
-textarea {
+textarea,
+select {
   font-family: "Sansita Swashed", cursive;
 }
 .btn {
@@ -71,6 +72,7 @@ li,
 label,
 input,
 textarea,
+select,
 .btn {
   font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
@@ -99,19 +101,16 @@ a {
   background-color: var(--tertiary-clr);
   border-color: var(--main-clr);
 }
-input[type="image"] {
-  width: clamp(100px, 60vw, 300px);
-}
-
-#app {
+#app,
+#output {
   text-align: left;
   max-width: 500px;
   padding: 1em;
-  grid-area: form;
   margin: 0 auto;
 }
-#app input {
-  width: 100%;
+#app input,
+#app textarea {
+  width: 90%;
   padding: 0.5em;
   color: var(--secondary-clr);
   border-radius: 8px;
@@ -119,6 +118,11 @@ input[type="image"] {
 #app h1,
 #app h4 {
   color: var(--tertiary-clr);
+}
+#app .error {
+  font-size: 150%;
+  color: red;
+  display: none;
 }
 #app label {
   display: block;
@@ -128,7 +132,6 @@ input[type="image"] {
 }
 #app textarea {
   padding: 0.5em;
-  width: 100%;
   height: 80px;
   color: var(--secondary-clr);
   margin-bottom: 1em;
@@ -142,52 +145,39 @@ input[type="image"] {
   color: white;
   border-radius: 8px;
 }
-#app .nameDiv {
-  display: grid;
-  grid-column-gap: 20px;
-  grid-template-areas:
-    "fNameL lNameL"
-    "fName  lName";
-}
-
-#app #fName {
-  grid-area: fName;
-}
-#app #fNameL {
-  grid-area: fNameL;
-}
-#app #lName {
-  grid-area: lName;
-}
-#app #lNameL {
-  grid-area: lNameL;
-}
 #app h2 {
   text-transform: none;
   margin-top: 20vh;
   color: var(--tertiary-clr);
   margin-bottom: 2em;
 }
-.paymentMessage .back {
-  border-radius: 30px;
-  font-size: 200% !important;
-}
-.contact h2 {
-  margin-top: 12vh;
-}
-#app .container {
-  display: grid;
-  grid-template-areas: "socialMedia form";
-  align-items: center;
-}
 #app h4 {
   display: block;
   margin-bottom: 2em;
   width: 80%;
 }
+#unitChoice {
+  display: grid;
+  grid-template-columns: 30px auto;
+  grid-template-rows: repeat(3, 50px);
+  align-items: center;
+  justify-content: flex-start;
+}
+#unitChoice input {
+  margin: 0;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+}
+#output ul {
+  padding: 0;
+}
 #output li {
   list-style: none;
 }
+
 footer {
   text-align: center;
   background-color: var(--tertiary-clr);

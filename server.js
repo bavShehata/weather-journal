@@ -45,6 +45,6 @@ app.post("/", (req, res) => {
     humidity: req.body.main.humidity,
     fact: req.body.fact,
   };
-  projectData.push(newEntry);
+  projectData.splice(0, 0, newEntry);
   res.send(projectData);
 });

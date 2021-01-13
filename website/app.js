@@ -2,23 +2,28 @@
 const baseURL = "https://api.openweathermap.org/data/2.5/weather?q=";
 const keyAPI = "&appid=dd4721a67ec742e1427aa14c7248b320";
 
-// Event listener to add function to existing HTML DOM element
+// Event listener to remove existing HTML DOM element
 const deleteBtn = document.querySelector("#delete");
 deleteBtn.addEventListener("click", deleteData.bind(this));
 
 function deleteData() {
-  console.log("deleted");
   fetch("/all", {
     method: "DELETE",
     headers: {
       "Content-type": "application/json",
     },
   });
+  errorMsg.style.display = "none";
   updateUI();
 }
+// Storing an error in entering the City
+var errorFlag;
+
+// Event listener to add function to existing HTML DOM element
+
 const submitBtn = document.querySelector("#submit");
 submitBtn.addEventListener("click", weatherProcess.bind(this));
-//submitBtn.addEventListener("click", weatherProcess());
+
 /* Function called by event listener */
 function weatherProcess() {
   const city = document.querySelector("#city").value;
@@ -33,7 +38,6 @@ function weatherProcess() {
     units,
     fact: document.querySelector("#fact").value,
   };
-
   function selectedUnit() {
     const rbs = document.querySelectorAll("#unitChoice input[type=radio]");
     var chosen;
@@ -53,13 +57,17 @@ function weatherProcess() {
   });
 }
 /* Function to GET Web API Data*/
+const errorMsg = document.querySelector(".error");
 async function getAPI(url) {
   const response = await fetch(url);
-  try {
+  if (response.ok) {
+    errorMsg.style.display = "none";
+    errorFlag = false;
     const data = await response.json();
     return data;
-  } catch (err) {
-    console.log(err);
+  } else {
+    errorMsg.style.display = "inline";
+    errorFlag = true;
   }
 }
 /* Function to POST data */
@@ -80,10 +88,11 @@ async function postData(url, data) {
   }
 }
 /* Function to GET Project Data */
-async function updateUI() {
+async function updateUI(adding) {
   const response = await fetch("/all");
 
   try {
+    //Updating the UI
     const data = await response.json();
     const outputDiv = document.querySelector("#output");
     outputDiv.innerHTML = "";
@@ -92,7 +101,7 @@ async function updateUI() {
       console.log(entry);
       outputDiv.innerHTML += `
       <h3>${entry.city}</h3>
-      <ul id=${i}>
+      <ul id="${i}">
         <li class="units">temparture in: ${entry.units}</li>
         <li class="weather">The weather is: ${entry.description}</li>
         <li class="min">Minimum temparture: ${entry.temp_min}</li>
@@ -103,6 +112,8 @@ async function updateUI() {
       </ul><br /><br />`;
       i++;
     });
+    if (!errorFlag) document.querySelector("ul").scrollIntoView();
+    else document.querySelector("body").scrollIntoView();
   } catch (error) {
     console.log(error);
   }
