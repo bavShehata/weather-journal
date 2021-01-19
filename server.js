@@ -35,15 +35,28 @@ app.delete("/all", (req, res) => {
   res.send(null);
 });
 app.post("/", (req, res) => {
+  // from unix timestamp to actual date
+  const ts = req.body.data.dt;
+  const ts_ms = ts * 1000;
+  // initialize new Date object
+  const date_ob = new Date(ts_ms);
+  // year as 4 digits (YYYY)
+  const year = date_ob.getFullYear();
+  // month as 2 digits (MM)
+  const month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  // date as 2 digits (DD)
+  const day = ("0" + date_ob.getDate()).slice(-2);
+  // date as YYYY-MM-DD format
   projectData = {
-    city: req.body.city,
-    units: req.body.units.value,
-    description: req.body.weather[0].description,
-    temp_min: req.body.main.temp_min,
-    temp_max: req.body.main.temp_max,
-    temp: req.body.main.temp,
-    humidity: req.body.main.humidity,
-    fact: req.body.fact,
+    city: req.body.data.city,
+    units: req.body.data.units.value,
+    description: req.body.data.weather[0].description,
+    temp_min: req.body.data.main.temp_min,
+    temp_max: req.body.data.main.temp_max,
+    temp: req.body.data.main.temp,
+    humidity: req.body.data.main.humidity,
+    date: `${year} - ${month} - ${day}`,
+    fact: req.body.data.fact,
   };
   res.send(projectData);
 });

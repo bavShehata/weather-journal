@@ -7,15 +7,12 @@ const deleteBtn = document.querySelector("#delete");
 deleteBtn.addEventListener("click", deleteData.bind(this));
 
 function deleteData() {
-  fetch("/all", {
-    method: "DELETE",
-    headers: {
-      "Content-type": "application/json",
-    },
+  axios.delete("/all").then(() => {
+    errorMsg.style.display = "none";
+    updateUI();
   });
-  errorMsg.style.display = "none";
-  updateUI();
 }
+
 // Storing an error in entering the City
 var errorFlag;
 
@@ -60,47 +57,37 @@ function weatherProcess() {
 /* Function to GET Web API Data*/
 const errorMsg = document.querySelector(".error");
 async function getAPI(url) {
-  const response = await fetch(url);
-  if (response.ok) {
+  const response = await axios(url);
+  try {
     errorMsg.style.display = "none";
     errorFlag = false;
-    const data = await response.json();
-    console.log(data);
+    const data = response.data;
     return data;
-  } else {
+  } catch {
     errorMsg.style.display = "inline";
     errorFlag = true;
   }
 }
 /* Function to POST data */
 async function postData(url, data) {
-  const response = await fetch(url, {
-    method: "POST",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  const response = await axios.post(url, { data });
   try {
-    console.log(response);
-    const newData = await response.json();
-    return newData;
+    return response.data;
   } catch (err) {
     console.log(err);
   }
 }
 /* Function to GET Project Data */
 async function updateUI(adding) {
-  const response = await fetch("/all");
+  const response = await axios("/all");
 
   try {
     //Updating the UI
-    const data = await response.json();
+    const data = response.data;
     const outputDiv = document.querySelector("#output");
     outputDiv.innerHTML = "";
-    console.log(data);
-    outputDiv.innerHTML += `
+    if (!isEmpty(data)) {
+      outputDiv.innerHTML += `
       <h3>${data.city}</h3>
       <ul>
         <li class="units">temparture in: ${data.units}</li>
@@ -109,11 +96,21 @@ async function updateUI(adding) {
         <li class="max">Maximum temparture: ${data.temp_max}</li>
         <li class="avg">The average temparture is: ${data.temp}</li>
         <li class="hum">The humidity is: ${data.humidity}</li>
+        <li class="date">The date of this info in YYYY-MM-DD Format: ${data.date}</li>
         <li class="fact">A fun fact about the city is that it is: ${data.fact}</li>
       </ul><br /><br />`;
+    }
     if (!errorFlag) document.querySelector("ul").scrollIntoView();
     else document.querySelector("body").scrollIntoView();
   } catch (error) {
     console.log(error);
   }
+}
+
+//Check if an object is empty
+function isEmpty(obj) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+  return true;
 }
