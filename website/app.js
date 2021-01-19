@@ -31,6 +31,7 @@ function weatherProcess() {
   const units = selectedUnit();
   const lang = "&lang=" + language;
   const uni = "&units=" + units.param;
+  // const mode = "&mode=xml";
   const paramaters = city + lang + uni;
   const userData = {
     city,
@@ -64,6 +65,7 @@ async function getAPI(url) {
     errorMsg.style.display = "none";
     errorFlag = false;
     const data = await response.json();
+    console.log(data);
     return data;
   } else {
     errorMsg.style.display = "inline";
@@ -81,6 +83,7 @@ async function postData(url, data) {
     body: JSON.stringify(data),
   });
   try {
+    console.log(response);
     const newData = await response.json();
     return newData;
   } catch (err) {
@@ -96,22 +99,18 @@ async function updateUI(adding) {
     const data = await response.json();
     const outputDiv = document.querySelector("#output");
     outputDiv.innerHTML = "";
-    var i = 0;
-    data.forEach((entry) => {
-      console.log(entry);
-      outputDiv.innerHTML += `
-      <h3>${entry.city}</h3>
-      <ul id="${i}">
-        <li class="units">temparture in: ${entry.units}</li>
-        <li class="weather">The weather is: ${entry.description}</li>
-        <li class="min">Minimum temparture: ${entry.temp_min}</li>
-        <li class="max">Maximum temparture: ${entry.temp_max}</li>
-        <li class="avg">The average temparture is: ${entry.temp}</li>
-        <li class="hum">The humidity is: ${entry.humidity}</li>
-        <li class="fact">A fun fact about the city is that it is: ${entry.fact}</li>
+    console.log(data);
+    outputDiv.innerHTML += `
+      <h3>${data.city}</h3>
+      <ul>
+        <li class="units">temparture in: ${data.units}</li>
+        <li class="weather">The weather is: ${data.description}</li>
+        <li class="min">Minimum temparture: ${data.temp_min}</li>
+        <li class="max">Maximum temparture: ${data.temp_max}</li>
+        <li class="avg">The average temparture is: ${data.temp}</li>
+        <li class="hum">The humidity is: ${data.humidity}</li>
+        <li class="fact">A fun fact about the city is that it is: ${data.fact}</li>
       </ul><br /><br />`;
-      i++;
-    });
     if (!errorFlag) document.querySelector("ul").scrollIntoView();
     else document.querySelector("body").scrollIntoView();
   } catch (error) {
