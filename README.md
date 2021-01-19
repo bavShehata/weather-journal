@@ -11,3 +11,9 @@ To work with this web app, you enter the name of a city/country. E.g. Luxor, Fra
 If you want to delete the data, simply click Delete Data.
 
 In case you entered a wrong city name, an error message will appear under the City textbox telling you so, and then you can re-submit the form with the correct name.
+
+All required dependencies can be found in the `package.json` file
+
+## License
+
+Copyright (c) 2021 _BavShehata_. Feel free to use and distribute it under the terms specified in the **LICENSE** file
