@@ -8,6 +8,7 @@
   --secondary-clr: #765555;
   --tertiary-clr: #543f3f;
 }
+
 /* width */
 ::-webkit-scrollbar {
   width: 20px;
@@ -100,6 +101,17 @@ a {
 .btn:hover {
   background-color: var(--tertiary-clr);
   border-color: var(--main-clr);
+}
+header {
+  display: flex;
+  align-items: center;
+  background-color: var(--main-clr);
+  width: 100%;
+}
+
+img {
+  width: 80px;
+  margin: 0 30px;
 }
 #app,
 #output {
